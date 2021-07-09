@@ -3,13 +3,26 @@
 }
 .app {
   background-color: #fafafa;
-  height: 100vh;
+  height: 500vh;
 }
 
-.app__headerImage {
+.app__header {
   /* this fits the image exactly instead of expanding */
   object-fit: contain;
   background-color: white;
   padding: 10px;
   border-bottom: 1px solid lightgrey;
+  display: flex;
+  justify-content: space-between;
+}
+.app__signup {
+  display: flex;
+  flex-direction: column;
+}
+.app__signin {
+  display: flex;
+  flex-direction: column;
+}
+.app__loginContainer {
+  justify-content: space-between;
 }

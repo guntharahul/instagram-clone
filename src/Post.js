@@ -15,7 +15,7 @@ const Post = (props) => {
         alt='post'
       ></img>
       <h5 className='post__text'>
-        <strong>{props.username}</strong> {props.postInfo.caption}
+        <strong>{props.postInfo.username} :</strong> {props.postInfo.caption}
       </h5>
     </div>
   );

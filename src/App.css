@@ -26,3 +26,7 @@
 .app__loginContainer {
   justify-content: space-between;
 }
+
+.app__posts {
+  padding: 10px;
+}

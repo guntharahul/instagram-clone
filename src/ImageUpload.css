@@ -1,0 +1,13 @@
+.imageUpload__post {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+}
+
+.imageUpload__progress {
+  width: 100%;
+}

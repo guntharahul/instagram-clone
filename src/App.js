@@ -3,6 +3,8 @@ import Post from './Post';
 import React, { useState, useEffect } from 'react';
 import { db, auth } from './firebase';
 import { Modal, makeStyles, Button, Input } from '@material-ui/core';
+import ImageUpload from './ImageUpload';
+import InstagramEmbed from 'react-instagram-embed';
 
 function getModalStyle() {
   const top = 50;
@@ -41,7 +43,7 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         //User has logged in
-        console.log(authUser);
+        // console.log(authUser);
         setUser(authUser);
       } else {
         //User has logged Out
@@ -55,15 +57,17 @@ function App() {
   }, [user, username]);
 
   useEffect(() => {
-    db.collection('posts').onSnapshot((snapshot) => {
-      //every time a new post is added this will function fired off.
-      setPosts(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          post: doc.data(),
-        }))
-      );
-    });
+    db.collection('posts')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot((snapshot) => {
+        //every time a new post is added this will function fired off.
+        setPosts(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            post: doc.data(),
+          }))
+        );
+      });
   }, []);
 
   const handleOpen = () => {
@@ -198,9 +202,30 @@ function App() {
         )}
       </div>
 
-      {posts.map((post) => (
-        <Post key={post.id} postInfo={post.post}></Post>
-      ))}
+      <div className='app__posts'>
+        {posts.map((post) => (
+          <Post key={post.id} postInfo={post.post}></Post>
+        ))}
+      </div>
+
+      <InstagramEmbed
+        url='https://www.instagram.com/p/CRHO3XuBDIM/'
+        maxWidth={320}
+        hideCaption={false}
+        containerTagName='div'
+        protocol=''
+        injectScript
+        onLoading={() => {}}
+        onSuccess={() => {}}
+        onAfterRender={() => {}}
+        onFailure={() => {}}
+      ></InstagramEmbed>
+
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName}></ImageUpload>
+      ) : (
+        <h4>Login to Post</h4>
+      )}
     </div>
   );
 }

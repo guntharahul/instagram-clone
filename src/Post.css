@@ -2,6 +2,7 @@
   max-width: 500px;
   background-color: white;
   border: 1px solid lightgrey;
+  margin-top: 10px;
 }
 
 .post__header {
@@ -12,7 +13,6 @@
 
 .post__image {
   border-top: 1px solid lightgrey;
-  border-bottom: 1px solid lightgrey;
   width: 100%;
   object-fit: contain;
 }
@@ -20,5 +20,32 @@
 }
 
 .post__text {
-  padding: 0.5rem;
+  padding: 10px;
+}
+.post__commentBox {
+  display: flex;
+  flex-direction: row;
+}
+.post__inputComment {
+  flex: 1;
+  border: none;
+  border-top: 1px solid gray;
+  padding: 10px;
+}
+.post__commentButton {
+  /* border: none; */
+  border: 1px solid lightgrey !important;
+  flex: 0;
+  color: lightskyblue;
+  background-color: transparent;
+  padding: 10px;
+}
+
+.post__comments {
+  border-top: 1px solid lightgrey;
+  padding: 5px 10px;
+}
+.post__noComments {
+  padding: 10px;
+  border-top: 1px solid lightgrey;
 }

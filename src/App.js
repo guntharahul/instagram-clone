@@ -38,8 +38,9 @@ function App() {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
 
+  // console.log(posts);
   useEffect(() => {
-    // when there is any change in auth happens this below function is fired (even if the page refresh too)
+    // when there is any change in auth happens this below function is fired (even if the page refresh also)
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         //User has logged in
@@ -51,6 +52,8 @@ function App() {
       }
     });
     return () => {
+      // this type of return statement is used when we want to do clean up mechanism.
+      //  this is also called as 'The side-effect cleanup'
       // perform some cleanup actions
       unsubscribe();
     };
@@ -91,6 +94,9 @@ function App() {
         alert(error.message);
       });
     setOpen(false);
+    setUsername('');
+    setPassword('');
+    setEmail('');
   };
 
   const signIn = (event) => {
@@ -99,6 +105,8 @@ function App() {
       alert(error.message);
     });
     setOpenSignIn(false);
+    setPassword('');
+    setEmail('');
   };
 
   return (
@@ -176,6 +184,13 @@ function App() {
           src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'
           alt='instagram'
         ></img>
+        {user && (
+          <div className='app__userDetails'>
+            <h6>Signed In as </h6>
+            <h4>{user.displayName}</h4>
+          </div>
+        )}
+
         {user ? (
           <Button
             variant='contained'
@@ -204,11 +219,16 @@ function App() {
 
       <div className='app__posts'>
         {posts.map((post) => (
-          <Post key={post.id} postInfo={post.post}></Post>
+          <Post
+            key={post.id}
+            postId={post.id}
+            postInfo={post.post}
+            user={user}
+          ></Post>
         ))}
       </div>
 
-      <InstagramEmbed
+      {/* <InstagramEmbed
         url='https://www.instagram.com/p/CRHO3XuBDIM/'
         maxWidth={320}
         hideCaption={false}
@@ -219,7 +239,7 @@ function App() {
         onSuccess={() => {}}
         onAfterRender={() => {}}
         onFailure={() => {}}
-      ></InstagramEmbed>
+      ></InstagramEmbed> */}
 
       {user?.displayName ? (
         <ImageUpload username={user.displayName}></ImageUpload>
